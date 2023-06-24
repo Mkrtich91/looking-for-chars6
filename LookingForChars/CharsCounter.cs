@@ -12,8 +12,21 @@ namespace LookingForChars
         /// <returns>The number of occurrences of all characters.</returns>
         public static int GetCharsCount(string? str, char[]? chars)
         {
-            // TODO #1. Implement the method using "for" statement.
-            throw new NotImplementedException();
+            if (str == null || chars == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            int count = 0;
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (Array.IndexOf(chars, str[i]) != -1)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         /// <summary>
@@ -26,8 +39,39 @@ namespace LookingForChars
         /// <returns>The number of occurrences of all characters within the specified range of elements in the <see cref="string"/>.</returns>
         public static int GetCharsCount(string? str, char[]? chars, int startIndex, int endIndex)
         {
-            // TODO #2. Implement the method using "while" statement.
-            throw new NotImplementedException();
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str), "The string parameter cannot be null.");
+            }
+
+            if (chars == null)
+            {
+                throw new ArgumentNullException(nameof(chars), "The characters array parameter cannot be null.");
+            }
+
+            if (startIndex < 0 || startIndex >= str.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "The startIndex parameter is out of range.");
+            }
+
+            if (endIndex < startIndex || endIndex >= str.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(endIndex), "The endIndex parameter is out of range or less than startIndex.");
+            }
+
+            int count = 0;
+            int index = startIndex;
+            while (index <= endIndex && index < str.Length)
+            {
+                if (Array.IndexOf(chars, str[index]) != -1)
+                {
+                    count++;
+                }
+
+                index++;
+            }
+
+            return count;
         }
 
         /// <summary>
@@ -41,8 +85,51 @@ namespace LookingForChars
         /// <returns>The limited number of occurrences of characters to search for within the specified range of elements in the <see cref="string"/>.</returns>
         public static int GetCharsCount(string? str, char[]? chars, int startIndex, int endIndex, int limit)
         {
-            // TODO #3. Implement the method using "do..while" statements.
-            throw new NotImplementedException();
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str), "The string parameter cannot be null.");
+            }
+
+            if (chars == null)
+            {
+                throw new ArgumentNullException(nameof(chars), "The characters array parameter cannot be null.");
+            }
+
+            if (limit <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(limit), "The limit parameter must be greater than zero.");
+            }
+
+            if (startIndex < 0 || startIndex >= str.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "The startIndex parameter is out of range.");
+            }
+
+            if (endIndex < startIndex || endIndex >= str.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(endIndex), "The endIndex parameter is out of range or less than startIndex.");
+            }
+
+            int count = 0;
+            int index = startIndex;
+
+            do
+            {
+                if (index > endIndex || index >= str.Length)
+                {
+                    break;
+                }
+
+                if (Array.IndexOf(chars, str[index]) != -1)
+                {
+                    count++;
+                }
+
+                index++;
+            }
+            while (count < limit);
+
+            return count;
         }
     }
 }
